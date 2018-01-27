@@ -1,1 +1,1 @@
-# Home Pages with [MkDocs](http://www.mkdocs.org/)
+# Home Page with [MkDocs](http://www.mkdocs.org/)
