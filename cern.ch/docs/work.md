@@ -1,16 +1,3 @@
-<!-- Piwik --> 
-<script type="text/javascript"> 
-var pkBaseURL = (("https:" == document.location.protocol) ? "https://piwik.web.cern.ch/" : "http://piwik.web.cern.ch/"); 
-document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E")); 
-</script><script type="text/javascript"> 
-try { 
-var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 152); 
-piwikTracker.trackPageView(); 
-piwikTracker.enableLinkTracking(); 
-} catch( err ) {} 
-</script><noscript><p><img src="http://piwik.web.cern.ch/piwik.php?idsite=152" style="border:0" alt="" /></p></noscript> 
-<!-- End Piwik Tracking Code -->
-
 ### Meetings
 
 [<img src="../_images/indico.png" height="50">](https://indico.cern.ch/user/4548/dashboard/)

@@ -15,6 +15,7 @@ theme = "ananke"
 #  filename = "sitemap.xml"
 
 [params]
+  contact = "simone.bifani@gmail.com"
   favicon = ""
   site_logo = ""
   facebook = ""

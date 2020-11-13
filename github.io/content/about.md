@@ -17,10 +17,7 @@ type: page
 
 ### Employments
 
-- **Data Scientist**: since January 2021  
-Methods Analytics Ltd -- Bristol (United Kingdom)
-
-- **Research Fellow**: February 2013 - December 2020  
+- **Research Fellow**: since February 2013  
 University of Birmingham - Birmingham (United Kingdom)
 
 - **Postdoctoral Researcher**: January 2010 - December 2012  
