@@ -1,1 +1,4 @@
-# Home Page with [MkDocs](http://www.mkdocs.org/)
+# HomePage
+
+- [Hugo](https://gohugo.io/)
+- [MkDocs](http://www.mkdocs.org/)
