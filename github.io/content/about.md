@@ -1,10 +1,10 @@
 ---
 title: "About Me"
-menu: main
-type: page
 ---
 
-**Data Science**: During my career I have developed an extensive expertise on all aspects of data processing and analysis. I have supervised and optimised the preparation, quality control and selection of small and large datasets (up to several Petabytes) by improving existing or creating new algorithms, and exploiting distributed systems for parallel computing. I have designed, tuned and validated original models (e.g. linear, logistic) to accurately describe the data while reducing systematic biases. I am very familiar with statistical methods, in particular hypothesis testing and statistical estimators. I have pioneered very diverse and high-impact analysis pipelines with novel ideas, cross-validation, enhanced visualisations, robust reproducibility and state-of-the-art techniques including machine learning (e.g. decision trees, neural networks, clustering). For instance, my research has the potential to reshape our understanding of Nature with the vast datasets that will be accumulated in the next years.
+I have over ten years of research experience in particle physics that I gained by playing central roles in diverse aspects of three international collaborations based at the European Organisation for Nuclear Research (CERN). Throughout my career I have been the leading analyst of numerous high-impact and cutting-edge analyses of large datasets, and I have developed high-level problem-solving, collaborative and communication skills.
+
+**Data Science**: During my career I have developed an extensive expertise on all aspects of data processing and analysis. I have supervised and optimised the preparation, quality control and selection of small and large datasets by improving existing or creating new algorithms, and exploiting distributed systems for parallel computing. I have designed, tuned and validated original models to accurately describe the data while reducing systematic biases. I am very familiar with statistical methods, in particular hypothesis testing and statistical estimators. I have pioneered very diverse and high-impact analysis pipelines with novel ideas, cross-validation, enhanced visualisations, robust reproducibility and state-of-the-art techniques including machine learning. For instance, my research has the potential to reshape our understanding of Nature with the vast datasets that will be accumulated in the next years.
 
 **Collaborative Work**: I am a natural team player. I have worked in very small teams as well as with about a dozen colleagues on the same research topic. I have planned and managed the activities of multiple teams, which range from few tens up to about 100 members at various levels of experience.I have organised and chaired meetings, conferences and workshops with up to hundreds of participants. I have scheduled and supervised work of others effectively as well as reviewed the results of their data analyses until publication.
 
@@ -13,24 +13,3 @@ type: page
 **Awards and Grants**: I have received prestigious academic awards to complete my graduate studies from CERN and INFN, and also personal grants to visit CERN and LAL-Orsay for extended periods of time to boost my research.
 
 **Teaching and Recruitment**: I have been involved in teaching and mentoring of undergraduate and postgraduate students. I have run physics and computing laboratories, and given introductory lectures to my research. I have been a member of selecting panels to hire PhD students and recommend PostDoctoral candidates to the CERN fellowship programme.
-
-
-### Employments
-
-- **Research Fellow**: since February 2013  
-University of Birmingham - Birmingham (United Kingdom)
-
-- **Postdoctoral Researcher**: January 2010 - December 2012  
-University College Dublin - Dublin (Ireland)
-
-- **Marie-Curie Early Stage Researcher**: January 2008 - December 2009  
-Albert Einstein Centre for Fundamental Physics - Bern (Switzerland)
-
-
-### Education
-
-- **Doctor of Philosophy in Physics**: 28 March 2008  
-University of Torino - Torino (Italy)
-
-- **Master’s Degree in Physics, Summa Cum Laude**: 23 July 2004  
-University of Perugia - Perugia (Italy)

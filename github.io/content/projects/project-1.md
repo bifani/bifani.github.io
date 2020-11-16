@@ -1,7 +1,7 @@
 ---
 title: "Project I: Forecast at La Ginestra"
-#description: "Forecast at La Ginestra"
-date: 2017-04-09T10:58:08-04:00
+description: "Forecast at La Ginestra"
+date: 2020-05-01
 #tags: ["scene"]
 ---
 

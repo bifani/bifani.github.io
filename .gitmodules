@@ -1,3 +1,6 @@
-[submodule "github.io/themes/ananke"]
-	path = github.io/themes/ananke
-	url = https://github.com/budparr/gohugo-theme-ananke.git
+[submodule "github.io/themes/anatole"]
+	path = github.io/themes/anatole
+	url = https://github.com/lxndrblz/anatole.git
+[submodule "github.io/themes/coder-portfolio"]
+	path = github.io/themes/coder-portfolio
+	url = https://github.com/naro143/hugo-coder-portfolio
