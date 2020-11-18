@@ -1,12 +1,12 @@
 [submodule "github.io/themes/anatole"]
-	path = github.io/themes/anatole
+	path = hugo.github.io/themes/anatole
 	url = https://github.com/lxndrblz/anatole.git
 [submodule "github.io/themes/coder-portfolio"]
-	path = github.io/themes/coder-portfolio
+	path = hugo.github.io/themes/coder-portfolio
 	url = https://github.com/naro143/hugo-coder-portfolio
-#[submodule "cern.ch/docs/academicons"]
-#    path = cern.ch/docs/academicons
+#[submodule "mkdocs.cern.ch/docs/academicons"]
+#    path = mkdocs.cern.ch/docs/academicons
 #    url = https://github.com/jpswalsh/academicons
-#[submodule "cern.ch/docs/font-awesome"]
-#    path = cern.ch/docs/font-awesome
+#[submodule "mkdocs.cern.ch/docs/font-awesome"]
+#    path = mkdocs.cern.ch/docs/font-awesome
 #    url = https://github.com/FortAwesome/Font-Awesome
