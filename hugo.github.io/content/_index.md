@@ -1,5 +1,6 @@
 ---
-title: "Research Fellow | Data Scientist"
+title: "Data Scientist"
 ---
 
-I have over ten years of research experience in particle physics that I gained by playing central roles in diverse aspects of three international collaborations based at the European Organisation for Nuclear Research (CERN). Throughout my career I have been the leading analyst of numerous high-impact and cutting-edge analyses of large datasets, and I have developed high-level problem-solving, collaborative and communication skills.
+I have over ten years of experience in data analysis, software development and project management.
+I combine passion, creativity and technical excellence with high-level problem-solving, collaborative and communication skills to deliver transparent, robust and transformative intelligence.

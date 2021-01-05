@@ -1,85 +1,71 @@
-baseurl = "https://bifani.github.io" # Hostname (and path) to the root
+baseURL = "https://bifani.github.io"
+languageCode = "en-us"
+title = "Simone Bifani"
+theme = "anatole"
+summarylength = 10
+enableEmoji = true
+enableRobotsTXT = true
 
-title = "Simone Bifani" # Site title
-theme = "coder-portfolio" # Set the theme
 
-languagecode = "en" # The site’s language code used to generate RSS
-defaultcontentlanguage = "en" # The default content language
+## General settings
 
-#paginate = 20 # Default number of pages per page in pagination
-
-pygmentsstyle = "b2" # Color-theme or style for syntax highlighting
-pygmentscodefences = true # Enable code fence background highlighting
-pygmentscodefencesguesssyntax = true # Enable syntax guessing for code fences without specified language
-pygmentsUseClasses = true # new add
-
-#disqusShortname = "yourdiscussshortname" # Enable or disable Disqus
-
-[params] # theme parameters
-    author = "Simone Bifani" # Author's name
-    info = "Research Fellow | Data Scientist" # Author's job title or info
-    description = "Simone Bifani's Personal Website" # Site description
-    avatarurl = "images/profile.jpg" # Contain the path of the optionnal avatar in the static folder
-
-    keywords = "blog,developer,personal" # Site keywords
-
-    # Whether you want to hide copyright and credits in the footer
-    hideCredits = true
-    hideCopyright = true
-
-    # Custom CSS
-    custom_css = []
-
-    # Alignment of Mobile Menu items
-    itemscentered = true
-
-    # RTL support
-    rtl = false
-
-    # Bottom sns share
-    snsShare = true # new add
+[params]
+title = "Simone Bifani"
+author = "Simone Bifani"
+description = "Data Scientist"
+profilePicture = "images/profile.jpg"
+keywords = ""
+favicon = "favicons/"
+customCss = []
+customJs = []
+mainSections = ["home"]
+images = [""]
 
 
 ## Math settings
+
 [params.math]
-    enable = false  # options: true, false. Enable math support globally, default: false. You can always enable math on per page
-    use = "katex"  # options: "katex", "mathjax". default is "katex"
+enable = false  # options: true, false. Enable math support globally, default: false. You can always enable math on per page.
+use = "katex"  # options: "katex", "mathjax". default is "katex".
 
 
 ## Social settings (use 'fab' when brand icons, use 'fas' when standard solid icons)
-[[params.social]]
-    name = "Linkedin"
-    url = "https://www.linkedin.com/in/simone-bifani"
-    icon = "fab fa-linkedin"
-    weight = 1
-[[params.social]]
-    name = "GitHub"
-    url = "https://github.com/bifani"
-    icon = "fab fa-github"
-    weight = 2
-[[params.social]]
-    name = "Instagram"
-    url = "https://www.instagram.com/tadayuki79"
-    icon = "fab fa-instagram"
-    weight = 3
-[[params.social]]
-    name = "Twitter"
-    url = "https://twitter.com/tadayuki79"
-    icon = "fab fa-twitter"
-    weight = 4
-[[params.social]]
-    name = "e-mail"
-    url = "mailto:simone.bifani@gmail.com"
-    icon = "fas fa-envelope"
-    weight = 5
 
+[[params.socialIcons]]
+icon = "fab fa-linkedin"
+title = "Linkedin"
+url = "https://www.linkedin.com/in/simone-bifani"
+
+[[params.socialIcons]]
+icon = "fab fa-github"
+title = "GitHub"
+url = "https://github.com/bifani"
+
+[[params.socialIcons]]
+icon = "fab fa-instagram"
+title = "Instagram"
+url = "https://www.instagram.com/tadayuki79"
+
+[[params.socialIcons]]
+icon = "fab fa-twitter"
+title = "Twitter"
+url = "https://twitter.com/tadayuki79"
+
+[[params.socialIcons]]
+icon = "fas fa-envelope"
+title = "e-mail"
+url = "mailto:simone.bifani@gmail.com"
 
 ## Menu settings
-[[menu.main]]
-    name = "About Me"
-    url = "/about/"
-    weight = 1
-[[menu.main]]
-    name = "My Projects"
-    url = "/projects/"
-    weight = 2
+
+[menu]
+
+  [[menu.main]]
+  name = "About Me"
+  identifier = "about"
+  url = "/about/"
+
+  [[menu.main]]
+  name = "My Projects"
+  identifier = "projects"
+  url = "/projects/"

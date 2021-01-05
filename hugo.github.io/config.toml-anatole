@@ -12,7 +12,7 @@ enableRobotsTXT = true
 [params]
 title = "Simone Bifani"
 author = "Simone Bifani"
-description = "Research Fellow | Data Scientist"
+description = "Data Scientist"
 profilePicture = "images/profile.jpg"
 keywords = ""
 favicon = "favicons/"
