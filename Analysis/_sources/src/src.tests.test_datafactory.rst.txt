@@ -1,0 +1,8 @@
+src.tests.test\_datafactory module
+==================================
+
+.. automodule:: src.tests.test_datafactory
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

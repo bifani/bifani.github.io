@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>src.statsfactory &mdash; Analysis 1.0.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Analysis
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../src/src.datafactory.html">src.datafactory module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../src/src.modelfactory.html">src.modelfactory module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../src/src.statsfactory.html">src.statsfactory module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../src/src.miscellaneous.html">src.miscellaneous module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Analysis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>src.statsfactory</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for src.statsfactory</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+
+
+<div class="viewcode-block" id="StatsFactory"><a class="viewcode-back" href="../../src/src.statsfactory.html#src.statsfactory.StatsFactory">[docs]</a><span class="k">class</span> <span class="nc">StatsFactory</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Statistical test between two Continuous Variables</span>
+<span class="sd">    - Pearson correlation - parametric/linear https://en.wikipedia.org/wiki/Pearson_correlation_coefficient</span>
+<span class="sd">    - Spearman Rank correlation - non-parametric/non-linear https://en.wikipedia.org/wiki/Spearman%27s_rank_correlation_coefficient</span>
+<span class="sd">    Statistical test between one Continuous and one Categorical variable</span>
+<span class="sd">    - ANOVA correlation - parametric/linear https://en.wikipedia.org/wiki/Analysis_of_variance</span>
+<span class="sd">    - Kendall Rank correlation - non-parametric/non-linear https://en.wikipedia.org/wiki/Kendall_rank_correlation_coefficient</span>
+<span class="sd">    - T-test - parametric https://en.wikipedia.org/wiki/Student%27s_t-test</span>
+<span class="sd">    - Mann-Whitney test - non-parametric (and/or) # https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test</span>
+<span class="sd">    Statistical test between two Categorical variables</span>
+<span class="sd">    - Chi-squared test - parametric # https://en.wikipedia.org/wiki/Chi-squared_test</span>
+<span class="sd">    - Mutual Information - https://en.wikipedia.org/wiki/Mutual_information</span>
+
+<span class="sd">    https://en.wikipedia.org/wiki/Effect_size</span>
+<span class="sd">    Parametric test (Dependent variable is e.g. normally distributed)</span>
+<span class="sd">    https://en.wikipedia.org/wiki/Parametric_statistics</span>
+<span class="sd">    https://en.wikipedia.org/wiki/Nonparametric_statistics</span>
+
+<span class="sd">    https://towardsdatascience.com/how-to-know-which-statistical-test-to-use-for-hypothesis-testing-744c91685a5d</span>
+<span class="sd">    https://machinelearningmastery.com/feature-selection-with-real-and-categorical-data/</span>
+<span class="sd">    http://www.mash.dept.shef.ac.uk/Resources/MASH-WhatStatisticalTestHandout.pdf</span>
+
+<span class="sd">    https://machinelearningmastery.com/statistical-hypothesis-tests-in-python-cheat-sheet/</span>
+<span class="sd">    https://towardsdatascience.com/hypothesis-testing-in-machine-learning-using-python-a0dc89e169ce</span>
+<span class="sd">    https://towardsdatascience.com/hypothesis-testing-a23852264d09</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">methods</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">m</span>
+            <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">StatsFactory</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">m</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="ow">not</span> <span class="n">m</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;_StatsFactory&quot;</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="ow">not</span> <span class="n">m</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;print&quot;</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="ow">not</span> <span class="n">m</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;test_all&quot;</span><span class="p">)</span>
+        <span class="p">]</span>
+
+<div class="viewcode-block" id="StatsFactory.print"><a class="viewcode-back" href="../../src/src.statsfactory.html#src.statsfactory.StatsFactory.print">[docs]</a>    <span class="k">def</span> <span class="nf">print</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Available methods (statistic, pvalue):&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">methods</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="StatsFactory.test_all"><a class="viewcode-back" href="../../src/src.statsfactory.html#src.statsfactory.StatsFactory.test_all">[docs]</a>    <span class="k">def</span> <span class="nf">test_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="n">pvalues</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">rtests</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">print</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">test</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">methods</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">statistic</span><span class="p">,</span> <span class="n">pvalue</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;self.</span><span class="si">{</span><span class="n">test</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+                <span class="n">pvalues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pvalue</span><span class="p">)</span>
+                <span class="n">rtests</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">test</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">continue</span>
+        <span class="n">ser</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">pvalues</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">rtests</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;pvalues&quot;</span><span class="p">)</span>
+        <span class="n">display</span><span class="p">(</span><span class="n">ser</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="StatsFactory.anova_f"><a class="viewcode-back" href="../../src/src.statsfactory.html#src.statsfactory.StatsFactory.anova_f">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">anova_f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        ANOVA F-value</span>
+
+<span class="sd">        Tests the null hypothesis that two or more groups have the same population mean</span>
+
+<span class="sd">        .. seealso:: https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.f_oneway.html</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">statistic</span><span class="p">,</span> <span class="n">pvalue</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">f_oneway</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">statistic</span><span class="p">,</span> <span class="n">pvalue</span></div>
+
+<div class="viewcode-block" id="StatsFactory.chi_square"><a class="viewcode-back" href="../../src/src.statsfactory.html#src.statsfactory.StatsFactory.chi_square">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">chi_square</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        One-way Chi2 test</span>
+
+<span class="sd">        Tests the null hypothesis that the categorical data has the given frequencies.</span>
+
+<span class="sd">        .. seealso:: https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.chisquare.html</span>
+<span class="sd">            https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.chi2_contingency.html</span>
+
+<span class="sd">        :param equal_var: “Delta degrees of freedom”: adjustment to the degrees of freedom for the p-value</span>
+<span class="sd">            The p-value is computed using a chi-squared distribution with k - 1 - ddof degrees of freedom, where k is the number of observed frequencies</span>
+<span class="sd">        :type  equal_var: int, default=0</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># x = x.reshape(-1, 1)</span>
+        <span class="c1"># from sklearn.feature_selection import chi2</span>
+        <span class="c1"># statistic, pvalue = chi2(x, y)</span>
+        <span class="c1"># return statistic[0], pvalue[0]</span>
+        <span class="c1"># statistic, pvalue = stats.chisquare(x, y, ddof=ddof)</span>
+        <span class="c1"># return statistic, pvalue</span>
+        <span class="n">ct</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">statistic</span><span class="p">,</span> <span class="n">pvalue</span><span class="p">,</span> <span class="n">dof</span><span class="p">,</span> <span class="n">expected</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">chi2_contingency</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">statistic</span><span class="p">,</span> <span class="n">pvalue</span></div>
+
+<div class="viewcode-block" id="StatsFactory.conditional_entropy"><a class="viewcode-back" href="../../src/src.statsfactory.html#src.statsfactory.StatsFactory.conditional_entropy">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">conditional_entropy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Conditional entropy test of x given y: S(x|y)</span>
+
+<span class="sd">        Quantifies the amount of information needed to describe the outcome of a random variable Y given that the value of another random variable X is known</span>
+
+<span class="sd">        .. seealso:: https://en.wikipedia.org/wiki/Conditional_entropy</span>
+
+<span class="sd">        :param x: A sequence of measurements</span>
+<span class="sd">        :type  x: list / NumPy ndarray / Pandas Series</span>
+<span class="sd">        :param y: A sequence of measurements</span>
+<span class="sd">        :type  y: list / NumPy ndarray / Pandas Series</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># entropy of x given y</span>
+        <span class="n">y_counter</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">xy_counter</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)))</span>
+        <span class="n">total_occurrences</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">y_counter</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="n">entropy</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">for</span> <span class="n">xy</span> <span class="ow">in</span> <span class="n">xy_counter</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">p_xy</span> <span class="o">=</span> <span class="n">xy_counter</span><span class="p">[</span><span class="n">xy</span><span class="p">]</span> <span class="o">/</span> <span class="n">total_occurrences</span>
+            <span class="n">p_y</span> <span class="o">=</span> <span class="n">y_counter</span><span class="p">[</span><span class="n">xy</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">/</span> <span class="n">total_occurrences</span>
+            <span class="n">entropy</span> <span class="o">+=</span> <span class="n">p_xy</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">p_y</span> <span class="o">/</span> <span class="n">p_xy</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">entropy</span></div>
+
+<div class="viewcode-block" id="StatsFactory.correlation_ratio"><a class="viewcode-back" href="../../src/src.statsfactory.html#src.statsfactory.StatsFactory.correlation_ratio">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">correlation_ratio</span><span class="p">(</span><span class="n">categories</span><span class="p">,</span> <span class="n">measurements</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Correlation ratio test</span>
+
+<span class="sd">        Measures of the relationship between the statistical dispersion within individual categories and the dispersion across the whole population or sample</span>
+
+<span class="sd">        .. seealso:: https://en.wikipedia.org/wiki/Correlation_ratio</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">fcat</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">factorize</span><span class="p">(</span><span class="n">categories</span><span class="p">)</span>
+        <span class="n">cat_num</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">fcat</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">y_avg_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">cat_num</span><span class="p">)</span>
+        <span class="n">n_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">cat_num</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">cat_num</span><span class="p">):</span>
+            <span class="n">cat_measures</span> <span class="o">=</span> <span class="n">measurements</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">fcat</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()]</span>
+            <span class="n">n_array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cat_measures</span><span class="p">)</span>
+            <span class="n">y_avg_array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">cat_measures</span><span class="p">)</span>
+        <span class="n">y_total_avg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">y_avg_array</span><span class="p">,</span> <span class="n">n_array</span><span class="p">))</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">n_array</span><span class="p">)</span>
+        <span class="n">numerator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">n_array</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">y_avg_array</span><span class="p">,</span> <span class="n">y_total_avg</span><span class="p">),</span> <span class="mi">2</span><span class="p">)))</span>
+        <span class="n">denominator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span><span class="n">measurements</span><span class="p">,</span> <span class="n">y_total_avg</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">numerator</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">eta</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">eta</span> <span class="o">=</span> <span class="n">numerator</span> <span class="o">/</span> <span class="n">denominator</span>
+        <span class="k">return</span> <span class="n">eta</span></div>
+
+<div class="viewcode-block" id="StatsFactory.cohen_d"><a class="viewcode-back" href="../../src/src.statsfactory.html#src.statsfactory.StatsFactory.cohen_d">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">cohen_d</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Cohen&#39;s d test (Difference family: Effect sizes based on differences between means)</span>
+
+<span class="sd">        .. seealso:: https://en.wikipedia.org/wiki/Effect_size#Cohen&#39;s_d</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># calculate the size of samples</span>
+        <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">d1</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">d2</span><span class="p">)</span>
+        <span class="c1"># calculate the variance of the samples</span>
+        <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">d2</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># calculate the pooled standard deviation</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(((</span><span class="n">n1</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">s1</span> <span class="o">+</span> <span class="p">(</span><span class="n">n2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">s2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">n1</span> <span class="o">+</span> <span class="n">n2</span> <span class="o">-</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="c1"># calculate the means of the samples</span>
+        <span class="n">u1</span><span class="p">,</span> <span class="n">u2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">d1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">d2</span><span class="p">)</span>
+        <span class="c1"># calculate the effect size</span>
+        <span class="n">cohend</span> <span class="o">=</span> <span class="p">(</span><span class="n">u1</span> <span class="o">-</span> <span class="n">u2</span><span class="p">)</span> <span class="o">/</span> <span class="n">s</span>
+        <span class="k">return</span> <span class="n">cohend</span></div>
+
+<div class="viewcode-block" id="StatsFactory.cramer_v"><a class="viewcode-back" href="../../src/src.statsfactory.html#src.statsfactory.StatsFactory.cramer_v">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">cramer_v</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Cramer&#39;s V test</span>
+
+<span class="sd">        Measures the association between two nominal variables based on Pearson&#39;s chi-squared statistic</span>
+
+<span class="sd">        .. seealso:: https://en.wikipedia.org/wiki/Cram%C3%A9r%27s_V</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">confusion_matrix</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">chi2</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">chi2_contingency</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="n">phi2</span> <span class="o">=</span> <span class="n">chi2</span> <span class="o">/</span> <span class="n">n</span>
+        <span class="n">r</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">phi2corr</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">phi2</span> <span class="o">-</span> <span class="p">((</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">rcorr</span> <span class="o">=</span> <span class="n">r</span> <span class="o">-</span> <span class="p">((</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">kcorr</span> <span class="o">=</span> <span class="n">k</span> <span class="o">-</span> <span class="p">((</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">cramerv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">phi2corr</span> <span class="o">/</span> <span class="nb">min</span><span class="p">((</span><span class="n">kcorr</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">rcorr</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="n">cramerv</span></div>
+
+<div class="viewcode-block" id="StatsFactory.determination_r2"><a class="viewcode-back" href="../../src/src.statsfactory.html#src.statsfactory.StatsFactory.determination_r2">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">determination_r2</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Determination r2 test, effectively pearson_r^2 (Correlation family: Effect sizes based on &quot;variance explained&quot;)</span>
+
+<span class="sd">        .. seealso:: https://en.wikipedia.org/wiki/Coefficient_of_determination</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">coeffs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">degree</span><span class="p">)</span>
+        <span class="c1"># r-squared</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">poly1d</span><span class="p">(</span><span class="n">coeffs</span><span class="p">)</span>
+        <span class="c1"># fit values, and mean</span>
+        <span class="n">yhat</span> <span class="o">=</span> <span class="n">p</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># or [p(z) for z in x]</span>
+        <span class="n">ybar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>  <span class="c1"># or sum(y)/len(y)</span>
+        <span class="n">ssreg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">yhat</span> <span class="o">-</span> <span class="n">ybar</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># or sum([ (yihat - ybar)**2 for yihat in yhat])</span>
+        <span class="n">sstot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y</span> <span class="o">-</span> <span class="n">ybar</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># or sum([ (yi - ybar)**2 for yi in y])</span>
+        <span class="n">determinationr2</span> <span class="o">=</span> <span class="n">ssreg</span> <span class="o">/</span> <span class="n">sstot</span>
+        <span class="k">return</span> <span class="n">determinationr2</span></div>
+
+<div class="viewcode-block" id="StatsFactory.kendall_tau"><a class="viewcode-back" href="../../src/src.statsfactory.html#src.statsfactory.StatsFactory.kendall_tau">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">kendall_tau</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Spearman test for non-correlation (Correlation family: Effect sizes based on &quot;variance explained&quot;)</span>
+
+<span class="sd">        The Spearman rank-order correlation coefficient is a nonparametric measure of the monotonicity of the relationship between two datasets</span>
+
+<span class="sd">        Effect sizes based on variance explained</span>
+
+<span class="sd">        .. seealso:: https://en.wikipedia.org/wiki/Kendall_rank_correlation_coefficient</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">statistic</span><span class="p">,</span> <span class="n">pvalue</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">kendalltau</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">statistic</span><span class="p">,</span> <span class="n">pvalue</span></div>
+
+<div class="viewcode-block" id="StatsFactory.kolmogorov_smirnov"><a class="viewcode-back" href="../../src/src.statsfactory.html#src.statsfactory.StatsFactory.kolmogorov_smirnov">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">kolmogorov_smirnov</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Kolmogorov-Smirnov test on 2 samples</span>
+
+<span class="sd">        This is a two-sided test for the null hypothesis that 2 independent samples are drawn from the same continuous distribution. The alternative hypothesis can be either ‘two-sided’ (default), ‘less’ or ‘greater’</span>
+
+<span class="sd">        .. seealso:: https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ks_2samp.html</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">statistic</span><span class="p">,</span> <span class="n">pvalue</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ks_2samp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">statistic</span><span class="p">,</span> <span class="n">pvalue</span></div>
+
+<div class="viewcode-block" id="StatsFactory.kruskal"><a class="viewcode-back" href="../../src/src.statsfactory.html#src.statsfactory.StatsFactory.kruskal">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">kruskal</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Kruskal-Wallis H-test for independent samples</span>
+
+<span class="sd">        The Kruskal-Wallis H-test tests the null hypothesis that the population median of all of the groups are equal. It is a non-parametric version of ANOVA. The test works on 2 or more independent samples, which may have different sizes. Note that rejecting the null hypothesis does not indicate which of the groups differs. Post hoc comparisons between groups are required to determine which groups are different.</span>
+
+<span class="sd">        .. seealso:: https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.kruskal.html</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">statistic</span><span class="p">,</span> <span class="n">pvalue</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">kruskal</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">statistic</span><span class="p">,</span> <span class="n">pvalue</span></div>
+
+<div class="viewcode-block" id="StatsFactory.mannwhitney_u"><a class="viewcode-back" href="../../src/src.statsfactory.html#src.statsfactory.StatsFactory.mannwhitney_u">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">mannwhitney_u</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Mann-Whitney rank test on 2 samples</span>
+
+<span class="sd">        .. seealso:: https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.mannwhitneyu.html</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">statistic</span><span class="p">,</span> <span class="n">pvalue</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">mannwhitneyu</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">statistic</span><span class="p">,</span> <span class="n">pvalue</span></div>
+
+<div class="viewcode-block" id="StatsFactory.mutual_info_classif"><a class="viewcode-back" href="../../src/src.statsfactory.html#src.statsfactory.StatsFactory.mutual_info_classif">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">mutual_info_classif</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Mutual information for a discrete target variable</span>
+
+<span class="sd">        .. seealso:: https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.mutual_info_classif.html</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+        <span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="kn">import</span> <span class="n">mutual_info_classif</span>
+
+        <span class="n">statistic</span> <span class="o">=</span> <span class="n">mutual_info_classif</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">statistic</span><span class="p">,</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="StatsFactory.mutual_info_regression"><a class="viewcode-back" href="../../src/src.statsfactory.html#src.statsfactory.StatsFactory.mutual_info_regression">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">mutual_info_regression</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Mutual information for a continuous target variable</span>
+
+<span class="sd">        .. seealso:: https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.mutual_info_regression.html</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+        <span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="kn">import</span> <span class="n">mutual_info_regression</span>
+
+        <span class="n">statistic</span> <span class="o">=</span> <span class="n">mutual_info_regression</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">statistic</span><span class="p">,</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="StatsFactory.normal"><a class="viewcode-back" href="../../src/src.statsfactory.html#src.statsfactory.StatsFactory.normal">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">normal</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Normal</span>
+
+<span class="sd">        Test whether a sample differs from a normal distribution</span>
+
+<span class="sd">        .. seealso:: https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.normaltest.html</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">statistic</span><span class="p">,</span> <span class="n">pvalue</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">normaltest</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">statistic</span><span class="p">,</span> <span class="n">pvalue</span></div>
+
+<div class="viewcode-block" id="StatsFactory.pearson_r"><a class="viewcode-back" href="../../src/src.statsfactory.html#src.statsfactory.StatsFactory.pearson_r">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">pearson_r</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Pearson test for non-correlation (Correlation family: Effect sizes based on &quot;variance explained&quot;)</span>
+
+<span class="sd">        The Pearson correlation coefficient measures the linear relationship between two datasets. The calculation of the p-value relies on the assumption that each dataset is normally distributed.</span>
+
+<span class="sd">        Effect sizes based on variance explained</span>
+
+<span class="sd">        .. seealso:: https://en.wikipedia.org/wiki/Pearson_correlation_coefficient</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">statistic</span><span class="p">,</span> <span class="n">pvalue</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">statistic</span><span class="p">,</span> <span class="n">pvalue</span></div>
+
+<div class="viewcode-block" id="StatsFactory.spearman_r"><a class="viewcode-back" href="../../src/src.statsfactory.html#src.statsfactory.StatsFactory.spearman_r">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">spearman_r</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Spearman test for non-correlation (Correlation family: Effect sizes based on &quot;variance explained&quot;)</span>
+
+<span class="sd">        The Spearman rank-order correlation coefficient is a nonparametric measure of the monotonicity of the relationship between two datasets</span>
+
+<span class="sd">        Effect sizes based on variance explained</span>
+
+<span class="sd">        .. seealso:: https://en.wikipedia.org/wiki/Spearman%27s_rank_correlation_coefficient</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">statistic</span><span class="p">,</span> <span class="n">pvalue</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">spearmanr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">statistic</span><span class="p">,</span> <span class="n">pvalue</span></div>
+
+<div class="viewcode-block" id="StatsFactory.theil_u"><a class="viewcode-back" href="../../src/src.statsfactory.html#src.statsfactory.StatsFactory.theil_u">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">theil_u</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Theil&#39;s U test</span>
+
+<span class="sd">        Measures the nominal association based on the concept of information entropy</span>
+
+<span class="sd">        .. seealso:: https://en.wikipedia.org/wiki/Uncertainty_coefficient</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">s_xy</span> <span class="o">=</span> <span class="n">conditional_entropy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">x_counter</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">total_occurrences</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x_counter</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="n">p_x</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="n">n</span> <span class="o">/</span> <span class="n">total_occurrences</span><span class="p">,</span> <span class="n">x_counter</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+        <span class="n">s_x</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">entropy</span><span class="p">(</span><span class="n">p_x</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">s_x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">s_x</span> <span class="o">-</span> <span class="n">s_xy</span><span class="p">)</span> <span class="o">/</span> <span class="n">s_x</span></div>
+
+<div class="viewcode-block" id="StatsFactory.t_test"><a class="viewcode-back" href="../../src/src.statsfactory.html#src.statsfactory.StatsFactory.t_test">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">t_test</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">,</span> <span class="n">equal_var</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        T-test for the means of two independent samples of scores (Confidence intervals by means of noncentrality parameter)</span>
+
+<span class="sd">        This is a two-sided test for the null hypothesis that 2 independent samples have identical average (expected) values. This test assumes that the populations have identical variances by default</span>
+
+<span class="sd">        .. seealso:: https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html</span>
+
+<span class="sd">        :param equal_var: If True (default), perform a standard independent 2 sample test that assumes equal population variances</span>
+<span class="sd">            If False, perform Welch’s t-test, which does not assume equal population variance</span>
+<span class="sd">        :type  equal_var: bool, default=True</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">statistic</span><span class="p">,</span> <span class="n">pvalue</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">,</span> <span class="n">equal_var</span><span class="o">=</span><span class="n">equal_var</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">statistic</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">pvalue</span> <span class="o">/=</span> <span class="mf">2.0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pvalue</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">pvalue</span> <span class="o">/</span> <span class="mf">2.0</span>
+        <span class="k">return</span> <span class="n">statistic</span><span class="p">,</span> <span class="n">pvalue</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Simone Bifani.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
