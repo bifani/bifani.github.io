@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>src.statsfactory module &mdash; Analysis 1.0.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="src.miscellaneous module" href="src.miscellaneous.html" />
+    <link rel="prev" title="src.modelfactory module" href="src.modelfactory.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Analysis
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="src.datafactory.html">src.datafactory module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src.modelfactory.html">src.modelfactory module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">src.statsfactory module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src.miscellaneous.html">src.miscellaneous module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Analysis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>src.statsfactory module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/src/src.statsfactory.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-src.statsfactory">
+<span id="src-statsfactory-module"></span><h1>src.statsfactory module<a class="headerlink" href="#module-src.statsfactory" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.statsfactory.StatsFactory">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.statsfactory.</span></span><span class="sig-name descname"><span class="pre">StatsFactory</span></span><a class="reference internal" href="../_modules/src/statsfactory.html#StatsFactory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.statsfactory.StatsFactory" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Statistical test between two Continuous Variables
+- Pearson correlation - parametric/linear <a class="reference external" href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">https://en.wikipedia.org/wiki/Pearson_correlation_coefficient</a>
+- Spearman Rank correlation - non-parametric/non-linear <a class="reference external" href="https://en.wikipedia.org/wiki/Spearman%27s_rank_correlation_coefficient">https://en.wikipedia.org/wiki/Spearman%27s_rank_correlation_coefficient</a>
+Statistical test between one Continuous and one Categorical variable
+- ANOVA correlation - parametric/linear <a class="reference external" href="https://en.wikipedia.org/wiki/Analysis_of_variance">https://en.wikipedia.org/wiki/Analysis_of_variance</a>
+- Kendall Rank correlation - non-parametric/non-linear <a class="reference external" href="https://en.wikipedia.org/wiki/Kendall_rank_correlation_coefficient">https://en.wikipedia.org/wiki/Kendall_rank_correlation_coefficient</a>
+- T-test - parametric <a class="reference external" href="https://en.wikipedia.org/wiki/Student%27s_t-test">https://en.wikipedia.org/wiki/Student%27s_t-test</a>
+- Mann-Whitney test - non-parametric (and/or) # <a class="reference external" href="https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test">https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test</a>
+Statistical test between two Categorical variables
+- Chi-squared test - parametric # <a class="reference external" href="https://en.wikipedia.org/wiki/Chi-squared_test">https://en.wikipedia.org/wiki/Chi-squared_test</a>
+- Mutual Information - <a class="reference external" href="https://en.wikipedia.org/wiki/Mutual_information">https://en.wikipedia.org/wiki/Mutual_information</a></p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Effect_size">https://en.wikipedia.org/wiki/Effect_size</a>
+Parametric test (Dependent variable is e.g. normally distributed)
+<a class="reference external" href="https://en.wikipedia.org/wiki/Parametric_statistics">https://en.wikipedia.org/wiki/Parametric_statistics</a>
+<a class="reference external" href="https://en.wikipedia.org/wiki/Nonparametric_statistics">https://en.wikipedia.org/wiki/Nonparametric_statistics</a></p>
+<p><a class="reference external" href="https://towardsdatascience.com/how-to-know-which-statistical-test-to-use-for-hypothesis-testing-744c91685a5d">https://towardsdatascience.com/how-to-know-which-statistical-test-to-use-for-hypothesis-testing-744c91685a5d</a>
+<a class="reference external" href="https://machinelearningmastery.com/feature-selection-with-real-and-categorical-data/">https://machinelearningmastery.com/feature-selection-with-real-and-categorical-data/</a>
+<a class="reference external" href="http://www.mash.dept.shef.ac.uk/Resources/MASH-WhatStatisticalTestHandout.pdf">http://www.mash.dept.shef.ac.uk/Resources/MASH-WhatStatisticalTestHandout.pdf</a></p>
+<p><a class="reference external" href="https://machinelearningmastery.com/statistical-hypothesis-tests-in-python-cheat-sheet/">https://machinelearningmastery.com/statistical-hypothesis-tests-in-python-cheat-sheet/</a>
+<a class="reference external" href="https://towardsdatascience.com/hypothesis-testing-in-machine-learning-using-python-a0dc89e169ce">https://towardsdatascience.com/hypothesis-testing-in-machine-learning-using-python-a0dc89e169ce</a>
+<a class="reference external" href="https://towardsdatascience.com/hypothesis-testing-a23852264d09">https://towardsdatascience.com/hypothesis-testing-a23852264d09</a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.statsfactory.StatsFactory.anova_f">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">anova_f</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/statsfactory.html#StatsFactory.anova_f"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.statsfactory.StatsFactory.anova_f" title="Permalink to this definition"></a></dt>
+<dd><p>ANOVA F-value</p>
+<p>Tests the null hypothesis that two or more groups have the same population mean</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.f_oneway.html">https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.f_oneway.html</a></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.statsfactory.StatsFactory.chi_square">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">chi_square</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ddof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/statsfactory.html#StatsFactory.chi_square"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.statsfactory.StatsFactory.chi_square" title="Permalink to this definition"></a></dt>
+<dd><p>One-way Chi2 test</p>
+<p>Tests the null hypothesis that the categorical data has the given frequencies.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.chisquare.html">https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.chisquare.html</a>
+<a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.chi2_contingency.html">https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.chi2_contingency.html</a></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>equal_var</strong> (<em>int</em><em>, </em><em>default=0</em>) – “Delta degrees of freedom”: adjustment to the degrees of freedom for the p-value
+The p-value is computed using a chi-squared distribution with k - 1 - ddof degrees of freedom, where k is the number of observed frequencies</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.statsfactory.StatsFactory.cohen_d">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cohen_d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/statsfactory.html#StatsFactory.cohen_d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.statsfactory.StatsFactory.cohen_d" title="Permalink to this definition"></a></dt>
+<dd><p>Cohen’s d test (Difference family: Effect sizes based on differences between means)</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Effect_size#Cohen's_d">https://en.wikipedia.org/wiki/Effect_size#Cohen’s_d</a></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.statsfactory.StatsFactory.conditional_entropy">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">conditional_entropy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/statsfactory.html#StatsFactory.conditional_entropy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.statsfactory.StatsFactory.conditional_entropy" title="Permalink to this definition"></a></dt>
+<dd><p>Conditional entropy test of x given y: S(x|y)</p>
+<p>Quantifies the amount of information needed to describe the outcome of a random variable Y given that the value of another random variable X is known</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Conditional_entropy">https://en.wikipedia.org/wiki/Conditional_entropy</a></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>list / NumPy ndarray / Pandas Series</em>) – A sequence of measurements</p></li>
+<li><p><strong>y</strong> (<em>list / NumPy ndarray / Pandas Series</em>) – A sequence of measurements</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.statsfactory.StatsFactory.correlation_ratio">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">correlation_ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">categories</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">measurements</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/statsfactory.html#StatsFactory.correlation_ratio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.statsfactory.StatsFactory.correlation_ratio" title="Permalink to this definition"></a></dt>
+<dd><p>Correlation ratio test</p>
+<p>Measures of the relationship between the statistical dispersion within individual categories and the dispersion across the whole population or sample</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Correlation_ratio">https://en.wikipedia.org/wiki/Correlation_ratio</a></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.statsfactory.StatsFactory.cramer_v">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cramer_v</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/statsfactory.html#StatsFactory.cramer_v"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.statsfactory.StatsFactory.cramer_v" title="Permalink to this definition"></a></dt>
+<dd><p>Cramer’s V test</p>
+<p>Measures the association between two nominal variables based on Pearson’s chi-squared statistic</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Cram%C3%A9r%27s_V">https://en.wikipedia.org/wiki/Cram%C3%A9r%27s_V</a></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.statsfactory.StatsFactory.determination_r2">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">determination_r2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">degree</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/statsfactory.html#StatsFactory.determination_r2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.statsfactory.StatsFactory.determination_r2" title="Permalink to this definition"></a></dt>
+<dd><p>Determination r2 test, effectively pearson_r^2 (Correlation family: Effect sizes based on “variance explained”)</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Coefficient_of_determination">https://en.wikipedia.org/wiki/Coefficient_of_determination</a></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.statsfactory.StatsFactory.kendall_tau">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">kendall_tau</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/statsfactory.html#StatsFactory.kendall_tau"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.statsfactory.StatsFactory.kendall_tau" title="Permalink to this definition"></a></dt>
+<dd><p>Spearman test for non-correlation (Correlation family: Effect sizes based on “variance explained”)</p>
+<p>The Spearman rank-order correlation coefficient is a nonparametric measure of the monotonicity of the relationship between two datasets</p>
+<p>Effect sizes based on variance explained</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Kendall_rank_correlation_coefficient">https://en.wikipedia.org/wiki/Kendall_rank_correlation_coefficient</a></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.statsfactory.StatsFactory.kolmogorov_smirnov">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">kolmogorov_smirnov</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/statsfactory.html#StatsFactory.kolmogorov_smirnov"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.statsfactory.StatsFactory.kolmogorov_smirnov" title="Permalink to this definition"></a></dt>
+<dd><p>Kolmogorov-Smirnov test on 2 samples</p>
+<p>This is a two-sided test for the null hypothesis that 2 independent samples are drawn from the same continuous distribution. The alternative hypothesis can be either ‘two-sided’ (default), ‘less’ or ‘greater’</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ks_2samp.html">https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ks_2samp.html</a></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.statsfactory.StatsFactory.kruskal">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">kruskal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/statsfactory.html#StatsFactory.kruskal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.statsfactory.StatsFactory.kruskal" title="Permalink to this definition"></a></dt>
+<dd><p>Kruskal-Wallis H-test for independent samples</p>
+<p>The Kruskal-Wallis H-test tests the null hypothesis that the population median of all of the groups are equal. It is a non-parametric version of ANOVA. The test works on 2 or more independent samples, which may have different sizes. Note that rejecting the null hypothesis does not indicate which of the groups differs. Post hoc comparisons between groups are required to determine which groups are different.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.kruskal.html">https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.kruskal.html</a></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.statsfactory.StatsFactory.mannwhitney_u">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mannwhitney_u</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/statsfactory.html#StatsFactory.mannwhitney_u"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.statsfactory.StatsFactory.mannwhitney_u" title="Permalink to this definition"></a></dt>
+<dd><p>Mann-Whitney rank test on 2 samples</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.mannwhitneyu.html">https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.mannwhitneyu.html</a></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.statsfactory.StatsFactory.mutual_info_classif">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mutual_info_classif</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/statsfactory.html#StatsFactory.mutual_info_classif"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.statsfactory.StatsFactory.mutual_info_classif" title="Permalink to this definition"></a></dt>
+<dd><p>Mutual information for a discrete target variable</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.mutual_info_classif.html">https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.mutual_info_classif.html</a></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.statsfactory.StatsFactory.mutual_info_regression">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mutual_info_regression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/statsfactory.html#StatsFactory.mutual_info_regression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.statsfactory.StatsFactory.mutual_info_regression" title="Permalink to this definition"></a></dt>
+<dd><p>Mutual information for a continuous target variable</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.mutual_info_regression.html">https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.mutual_info_regression.html</a></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.statsfactory.StatsFactory.normal">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">normal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/statsfactory.html#StatsFactory.normal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.statsfactory.StatsFactory.normal" title="Permalink to this definition"></a></dt>
+<dd><p>Normal</p>
+<p>Test whether a sample differs from a normal distribution</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.normaltest.html">https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.normaltest.html</a></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.statsfactory.StatsFactory.pearson_r">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pearson_r</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/statsfactory.html#StatsFactory.pearson_r"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.statsfactory.StatsFactory.pearson_r" title="Permalink to this definition"></a></dt>
+<dd><p>Pearson test for non-correlation (Correlation family: Effect sizes based on “variance explained”)</p>
+<p>The Pearson correlation coefficient measures the linear relationship between two datasets. The calculation of the p-value relies on the assumption that each dataset is normally distributed.</p>
+<p>Effect sizes based on variance explained</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Pearson_correlation_coefficient">https://en.wikipedia.org/wiki/Pearson_correlation_coefficient</a></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.statsfactory.StatsFactory.print">
+<span class="sig-name descname"><span class="pre">print</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/statsfactory.html#StatsFactory.print"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.statsfactory.StatsFactory.print" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.statsfactory.StatsFactory.spearman_r">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">spearman_r</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/statsfactory.html#StatsFactory.spearman_r"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.statsfactory.StatsFactory.spearman_r" title="Permalink to this definition"></a></dt>
+<dd><p>Spearman test for non-correlation (Correlation family: Effect sizes based on “variance explained”)</p>
+<p>The Spearman rank-order correlation coefficient is a nonparametric measure of the monotonicity of the relationship between two datasets</p>
+<p>Effect sizes based on variance explained</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Spearman%27s_rank_correlation_coefficient">https://en.wikipedia.org/wiki/Spearman%27s_rank_correlation_coefficient</a></p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.statsfactory.StatsFactory.t_test">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">t_test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">equal_var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/statsfactory.html#StatsFactory.t_test"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.statsfactory.StatsFactory.t_test" title="Permalink to this definition"></a></dt>
+<dd><p>T-test for the means of two independent samples of scores (Confidence intervals by means of noncentrality parameter)</p>
+<p>This is a two-sided test for the null hypothesis that 2 independent samples have identical average (expected) values. This test assumes that the populations have identical variances by default</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html">https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html</a></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>equal_var</strong> (<em>bool</em><em>, </em><em>default=True</em>) – If True (default), perform a standard independent 2 sample test that assumes equal population variances
+If False, perform Welch’s t-test, which does not assume equal population variance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.statsfactory.StatsFactory.test_all">
+<span class="sig-name descname"><span class="pre">test_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/statsfactory.html#StatsFactory.test_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.statsfactory.StatsFactory.test_all" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.statsfactory.StatsFactory.theil_u">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">theil_u</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/statsfactory.html#StatsFactory.theil_u"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.statsfactory.StatsFactory.theil_u" title="Permalink to this definition"></a></dt>
+<dd><p>Theil’s U test</p>
+<p>Measures the nominal association based on the concept of information entropy</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Uncertainty_coefficient">https://en.wikipedia.org/wiki/Uncertainty_coefficient</a></p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="src.modelfactory.html" class="btn btn-neutral float-left" title="src.modelfactory module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="src.miscellaneous.html" class="btn btn-neutral float-right" title="src.miscellaneous module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Simone Bifani.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

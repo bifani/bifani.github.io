@@ -1,0 +1,8 @@
+src.datafactory module
+======================
+
+.. automodule:: src.datafactory
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

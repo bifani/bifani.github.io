@@ -1,0 +1,8 @@
+src.modelfactory module
+=======================
+
+.. automodule:: src.modelfactory
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

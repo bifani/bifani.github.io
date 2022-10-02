@@ -1,0 +1,17 @@
+src.tests package
+=================
+
+.. automodule:: src.tests
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   src.tests.test_datafactory
+   src.tests.test_modelfactory
