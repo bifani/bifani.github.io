@@ -1,8 +1,0 @@
-src.miscellaneous module
-========================
-
-.. automodule:: src.miscellaneous
-   :members:
-   :undoc-members:
-   :show-inheritance:
-   :private-members:

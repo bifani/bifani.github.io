@@ -1,8 +1,0 @@
-src.statsfactory module
-=======================
-
-.. automodule:: src.statsfactory
-   :members:
-   :undoc-members:
-   :show-inheritance:
-   :private-members:

@@ -1,8 +1,0 @@
-src.tests.test\_modelfactory module
-===================================
-
-.. automodule:: src.tests.test_modelfactory
-   :members:
-   :undoc-members:
-   :show-inheritance:
-   :private-members:
