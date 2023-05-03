@@ -1,3 +1,9 @@
 [submodule "hugo/themes/anatole"]
 	path = hugo/themes/anatole
 	url = https://github.com/lxndrblz/anatole.git
+[submodule "mkdocs/content/academicons"]
+	path = mkdocs/content/academicons
+	url = https://github.com/jpswalsh/academicons
+[submodule "mkdocs/content/font-awesome"]
+	path = mkdocs/content/font-awesome
+	url = https://github.com/FortAwesome/Font-Awesome
