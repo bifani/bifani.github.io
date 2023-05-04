@@ -17,7 +17,15 @@ MathJax.Hub.Queue(function() {
 </script>
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-### Employments
+> I joined the LHCb experiment in 2010 and focussed my work on electroweak physics, rare b-hadron decays and lepton universality. I was responsible for the measurements of $W$ and $Z$ boson production during Run-1 and I co-convened the "Electroweak" sub-working group for two years. I tested lepton universality using $B^{0} \rightarrow K^{*0}l^{+}l^{-}$ decays and I co-convened the "Electroweak Penguin Decays" sub-working group for one year. I am currently working on multi-channel tests of lepton universality using $b \rightarrow s l^{+}l^{-}$ transitions and co-convening the "Rare Decays" working group.
+> As a member of the NA48 and NA62 collaborations between 2002 and 2009, I made extensive studies of rare kaon decays: I performed original analyses of the $K_{S,L} \rightarrow \pi^{\mp}\mu^{\pm}\nu$ and $K^\pm \rightarrow \pi^\pm\gamma\gamma$ processes and contributed to the operation and maintenance of the detector.  
+> I published more than 500 journal articles with 3 different international collaborations.
+
+<br>
+## Employments
+
+- **Honorary Research Fellow in Particle Physics**: January - December 2021  
+University of Birmingham, School of Physics and Astronomy - Birmingham (United Kingdom)
 
 - **Research Fellow in Particle Physics**: February 2013 - December 2020  
 University of Birmingham, School of Physics and Astronomy - Birmingham (United Kingdom)
@@ -32,7 +40,7 @@ Albert Einstein Centre for Fundamental Physics, Institute for Theoretical Physic
 University of Torino, Experimental Physics Department - Torino (Italy)
 
 <br>
-### Education
+## Education
 
 - **Doctor of Philosophy in Physics**: 28 March 2008  
 University of Torino, Experimental Physics Department - Torino (Italy), February 2005 - March 2008  
@@ -43,7 +51,7 @@ University of Perugia, Physics Department - Perugia (Italy), September 1998 - Ju
 Thesis: *“Study of the $K_{S,L} \rightarrow \pi\mu\nu$ decay at the NA48/1 experiment”*, [thesis](_pdfs/pd_thesis.pdf), [slides](_pdfs/pd_slides.pdf)
 
 <br>
-### Professional Experience
+## Professional Experience
 
 - **Representative of the Research Associates of the Particle Physics Group**: University of Birmingham (United Kingdom), December 2017 - December 2020
 
@@ -82,7 +90,7 @@ Thesis: *“Study of the $K_{S,L} \rightarrow \pi\mu\nu$ decay at the NA48/1 exp
 - **Online Monitoring and Hardware Maintenance of the NA48/2 and NA62 Experiments**: CERN (Switzerland), 2003 - 2008
 
 <br>
-### Grants and Awards
+## Grants and Awards
 
 - **IPPP Senior Experimental Fellowship** ***"Towards the Ultimate Precision in Flavour Physics"***: 2017 - 2018, [www](https://www.ippp.dur.ac.uk/senior-experimental-fellowships)  
 Institute for Particle Physics Phenomenology - Durham (United Kingdom)  
@@ -110,7 +118,7 @@ CERN, Physics Department - Geneva (Switzerland)
 Project: *“Study of the $K_S \rightarrow e^+e^-\gamma$ decay channel and its normalisation channel $K_S \rightarrow \pi^0\pi^0_D$”*
 
 <br>
-### Teaching
+## Teaching
 
 - **Demonstrator of the Third Year Scientific Computing Undergraduate Laboratory**: University of Birmingham (United Kingdom), October - December 2020
 
@@ -127,7 +135,7 @@ Project: *“Study of the $K_S \rightarrow e^+e^-\gamma$ decay channel and its n
 - **Co-Supervisor of PhD and CERN Summer Students**: University of Birmingham (United Kingdom), April 2013 - December 2020; University College Dublin (Ireland), September 2010 - December 2012; CERN (Switzerland), June - August 2008
 
 <br>
-### Conferences
+## Conferences
 
 - **XVI Incontri di Fisica della Alte Energie**: Trieste (Italy), 19 - 21 April 2017, [www](https://agenda.infn.it/conferenceDisplay.py?confId=12289), [slides](https://agenda.infn.it/getFile.py/access?contribId=186&sessionId=7&resId=0&materialId=slides&confId=12289)
 
@@ -160,7 +168,7 @@ Project: *“Study of the $K_S \rightarrow e^+e^-\gamma$ decay channel and its n
 - **XC National Congress of the Italian Physics Society**: Brescia (Italy), 20 - 25 September 2004, [slides](_pdfs/sif04_slides.pdf)
 
 <br>
-### Workshops
+## Workshops
 
 - **Rare B Decays 2018**: Munich (Germany), 20 - 22 Febraury 2018, [www](http://indico.universe-cluster.de/indico/event/bsll2018)
 
@@ -193,7 +201,7 @@ Project: *“Study of the $K_S \rightarrow e^+e^-\gamma$ decay channel and its n
 - **IV INFN Torino Congress**: Torino (Italy), 23 January 2007, [www](http://1stoldsite.to.infn.it/activities/schedules/congr2007/congr-2007.html), [slides](_pdfs/infn07_slides.pdf)
 
 <br>
-### Seminars
+## Seminars
 
 - **Centre de Physique des Particules de Marseille**: Séminaire - Marseille (France), 29 January 2018, [www](https://indico.in2p3.fr/event/16764/)
 
@@ -214,7 +222,7 @@ Project: *“Study of the $K_S \rightarrow e^+e^-\gamma$ decay channel and its n
 - **CERN**: LHC Seminar - Geneva (Switzerland), 18 April 2017, [www](https://indico.cern.ch/event/580620/)
 
 <br>
-### Schools
+## Schools
 
 - **XVII Detectors School**: Torino (Italy), 27 February - 2 March 2007, [www](http://www.gsr.unito.it/?Materiali&2007)
 
@@ -225,7 +233,7 @@ Project: *“Study of the $K_S \rightarrow e^+e^-\gamma$ decay channel and its n
 - **X LNF Spring School *“Bruno Touschek”* in Nuclear, Subnuclear and Astroparticle Physics**: Fascati (Italy), 16 - 20 May 2005, [www](http://www.lnf.infn.it/conference/lnfss/lnfss05.htm)
 
 <br>
-### Publications
+## Publications
 
 **Journal Articles**
 
