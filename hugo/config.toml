@@ -12,7 +12,7 @@ enableRobotsTXT = true
 [params]
 title = "Simone Bifani"
 author = "Simone Bifani"
-description = "Data Scientist | PhD in Physics"
+description = "Senior Data Scientist | PhD in Physics"
 profilePicture = "images/profile2.jpg"
 keywords = ""
 favicon = "favicons/favicon.ico"
@@ -41,10 +41,10 @@ icon = "fab fa-github"
 title = "GitHub"
 url = "https://github.com/bifani"
 
-[[params.socialIcons]]
-icon = "fab fa-gitlab"
-title = "GitLab"
-url = "https://gitlab.com/bifani"
+# [[params.socialIcons]]
+# icon = "fab fa-gitlab"
+# title = "GitLab"
+# url = "https://gitlab.com/bifani"
 
 [[params.socialIcons]]
 icon = "fab fa-instagram"
@@ -56,10 +56,10 @@ icon = "fab fa-twitter"
 title = "Twitter"
 url = "https://twitter.com/tadayuki79"
 
-#[[params.socialIcons]]
-#icon = "fas fa-envelope"
-#title = "Email"
-#url = "mailto:simone.bifani@gmail.com"
+# [[params.socialIcons]]
+# icon = "fas fa-envelope"
+# title = "Email"
+# url = "mailto:simone.bifani@gmail.com"
 
 
 ## Menu settings
@@ -68,15 +68,15 @@ url = "https://twitter.com/tadayuki79"
 
   [[menu.main]]
   name = "About Me"
-##  identifier = "about"
+# identifier = "about"
   url = "/about/"
   weight = 100
 
-##  [[menu.main]]
-##  name = "My Projects"
-##  identifier = "projects"
-##  url = "/projects/"
-##  weight = 200
+# [[menu.main]]
+# name = "My Projects"
+# identifier = "projects"
+# url = "/projects/"
+# weight = 200
 
   [[menu.main]]
   name = "Photo Gallery"
