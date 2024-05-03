@@ -10,23 +10,23 @@ enableRobotsTXT = true
 ## General settings
 
 [params]
-title = "Simone Bifani"
-author = "Simone Bifani"
-description = "Senior Data Scientist | PhD in Physics"
-profilePicture = "images/profile2.jpg"
-keywords = ""
-favicon = "favicons/favicon.ico"
-customCss = []
-customJs = []
-mainSections = ["home"]
-images = [""]
+  title = "Simone Bifani"
+  author = "Simone Bifani"
+  description = "Senior Data Scientist | PhD in Physics"
+  profilePicture = "images/profile2.jpg"
+  keywords = ""
+  favicon = "favicons/favicon.ico"
+  customCss = []
+  customJs = []
+  mainSections = ["home"]
+  images = [""]
 
 
 ## Math settings
 
 [params.math]
-enable = false  # options: true, false. Enable math support globally, default: false. You can always enable math on per page.
-use = "katex"  # options: "katex", "mathjax". default is "katex".
+  enable = false  # options: true, false. Enable math support globally, default: false. You can always enable math on per page.
+  use = "katex"  # options: "katex", "mathjax". default is "katex".
 
 
 ## Social settings (use 'fab' when brand icons, use 'fas' when standard solid icons)
