@@ -24,42 +24,42 @@ enableRobotsTXT = true
 
 ## Math settings
 
-[params.math]
-  enable = false  # options: true, false. Enable math support globally, default: false. You can always enable math on per page.
-  use = "katex"  # options: "katex", "mathjax". default is "katex".
+  [params.math]
+    enable = false  # options: true, false. Enable math support globally, default: false. You can always enable math on per page.
+    use = "katex"  # options: "katex", "mathjax". default is "katex".
 
 
 ## Social settings (use 'fab' when brand icons, use 'fas' when standard solid icons)
 
-[[params.socialIcons]]
-icon = "fab fa-linkedin"
-title = "Linkedin"
-url = "https://www.linkedin.com/in/simone-bifani"
+  [[params.socialIcons]]
+    icon = "fab fa-linkedin"
+    title = "Linkedin"
+    url = "https://www.linkedin.com/in/simone-bifani"
 
-[[params.socialIcons]]
-icon = "fab fa-github"
-title = "GitHub"
-url = "https://github.com/bifani"
+  [[params.socialIcons]]
+    icon = "fab fa-github"
+    title = "GitHub"
+    url = "https://github.com/bifani"
 
-# [[params.socialIcons]]
-# icon = "fab fa-gitlab"
-# title = "GitLab"
-# url = "https://gitlab.com/bifani"
+#   [[params.socialIcons]]
+#     icon = "fab fa-gitlab"
+#     title = "GitLab"
+#     url = "https://gitlab.com/bifani"
 
-[[params.socialIcons]]
-icon = "fab fa-instagram"
-title = "Instagram"
-url = "https://www.instagram.com/tadayuki79"
+  [[params.socialIcons]]
+    icon = "fab fa-instagram"
+    title = "Instagram"
+    url = "https://www.instagram.com/tadayuki79"
+    
+  [[params.socialIcons]]
+    icon = "fab fa-twitter"
+    title = "Twitter"
+    url = "https://twitter.com/tadayuki79"
 
-[[params.socialIcons]]
-icon = "fab fa-twitter"
-title = "Twitter"
-url = "https://twitter.com/tadayuki79"
-
-# [[params.socialIcons]]
-# icon = "fas fa-envelope"
-# title = "Email"
-# url = "mailto:simone.bifani@gmail.com"
+#   [[params.socialIcons]]
+#     icon = "fas fa-envelope"
+#     title = "Email"
+#     url = "mailto:simone.bifani@gmail.com"
 
 
 ## Menu settings
@@ -67,19 +67,19 @@ url = "https://twitter.com/tadayuki79"
 [menu]
 
   [[menu.main]]
-  name = "About Me"
-# identifier = "about"
-  url = "/about/"
-  weight = 100
+    name = "About Me"
+#   identifier = "about"
+    url = "/about/"
+    weight = 100
 
-# [[menu.main]]
-# name = "My Projects"
-# identifier = "projects"
-# url = "/projects/"
-# weight = 200
+#   [[menu.main]]
+#     name = "My Projects"
+#     identifier = "projects"
+#     url = "/projects/"
+#     weight = 200
 
   [[menu.main]]
-  name = "Photo Gallery"
-  identifier = "photogallery"
-  url = "https://bifani.github.io/photogallery/"
-  weight = 300
+    name = "Photo Gallery"
+    identifier = "photogallery"
+    url = "https://bifani.github.io/photogallery/"
+    weight = 300
